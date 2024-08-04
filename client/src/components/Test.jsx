@@ -3,6 +3,8 @@ import { useReadContract, useWriteContract, useAccount } from "wagmi";
 import { hhContractAbi, hhContractAddress } from "../config.js";
 import classes from "./Test.module.css";
 import { useWatchContractEvent } from "wagmi";
+import { SchemaRegistry } from "@ethereum-attestation-service/eas-sdk";
+import { ethers } from "ethers";
 
 const Test = () => {
   const [output, setOutput] = useState("");
