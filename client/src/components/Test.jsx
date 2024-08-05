@@ -43,7 +43,7 @@ const Test = () => {
   const eas = new EAS(EASContractAddress);
 
   // Gets a default provider (in production use something else like infura/alchemy)
-  const provider = useEthersProvider({ chainId: 11155420 });
+  const provider = useEthersProvider();
 
   console.log("this is the provider", provider);
 
@@ -59,7 +59,7 @@ const Test = () => {
   schemaRegistry.connect(provider);
 
   const schemaUID =
-    "0x3ee426c18d2dce68267f5fd2050b82687b51608819d7c2503f6f0ff0ac5ca1c8";
+    "0x27d06e3659317e9a4f8154d1e849eb53d43d91fb4f219884d1684f86d797804a";
 
   useEffect(() => {
     const logSchemaRecord = async () => {

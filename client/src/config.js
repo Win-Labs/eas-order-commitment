@@ -1,10 +1,10 @@
 import { http, createConfig, injected } from "@wagmi/core";
-import { optimismSepolia } from "viem/chains";
+import { optimismSepolia, sepolia } from "viem/chains";
 
 export const config = createConfig({
-  chains: [optimismSepolia],
+  chains: [sepolia],
   transports: {
-    [optimismSepolia.id]: http(),
+    [sepolia.id]: http(),
   },
   connectors: [injected()],
 });
