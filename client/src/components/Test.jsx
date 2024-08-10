@@ -13,25 +13,28 @@ const Test = () => {
     setOutput(`called connectWallet: ${address}`);
   };
 
-  const schemaRecord = useGetSchemaRecord(
-    "0x27d06e3659317e9a4f8154d1e849eb53d43d91fb4f219884d1684f86d797804a"
-  );
-  useEffect(() => {
-    console.log(schemaRecord);
-  }, [schemaRecord]);
-
-  const schema = "uint256 eventId, uint8 voteIndex";
-  const resolverAddress = "0x0a7E2Ff54e76B8E6659aedc9103FB21c038050D0"; // Sepolia 0.26
-  const revocable = true;
+  // const schemaRecord = useGetSchemaRecord(
+  //   "0x27d06e3659317e9a4f8154d1e849eb53d43d91fb4f219884d1684f86d797804a"
+  // );
+  // useEffect(() => {
+  //   console.log(schemaRecord);
+  // }, [schemaRecord]);
 
   const registerSchema = useRegisterSchema();
 
   useEffect(() => {
     const register = async () => {
-      await registerSchema(schema, resolverAddress, revocable);
+      const schema = "uint256 eventId, uint8 voteIndex";
+      const resolverAddress = "0x0a7E2Ff54e76B8E6659aedc9103FB21c038050D0"; // Sepolia 0.26
+      const revocable = true;
+      try {
+        await registerSchema(schema, resolverAddress, revocable);
+      } catch (error) {
+        console.error("Failed to register schema:", error);
+      }
     };
     register();
-  }, []);
+  }, [registerSchema]);
 
   return (
     <div

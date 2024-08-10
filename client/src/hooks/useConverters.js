@@ -1,6 +1,11 @@
-import { FallbackProvider, JsonRpcProvider } from "ethers";
+import {
+  BrowserProvider,
+  FallbackProvider,
+  JsonRpcProvider,
+  JsonRpcSigner,
+} from "ethers";
 import { useMemo } from "react";
-import { useClient } from "wagmi";
+import { useClient, useConnectorClient, useWalletClient } from "wagmi";
 
 export function clientToProvider(client) {
   const { chain, transport } = client;
@@ -19,6 +24,18 @@ export function clientToProvider(client) {
   return new JsonRpcProvider(transport.url, network);
 }
 
+export function clientToSigner(client) {
+  const { account, chain, transport } = client;
+  const network = {
+    chainId: chain.id,
+    name: chain.name,
+    ensAddress: chain.contracts?.ensRegistry?.address,
+  };
+  const provider = new BrowserProvider(transport, network);
+  const signer = new JsonRpcSigner(provider, account.address);
+  return signer;
+}
+
 /** Action to convert a viem Client to an ethers.js Provider. */
 export function useEthersProvider({ chainId } = {}) {
   const client = useClient({ chainId });
@@ -26,4 +43,10 @@ export function useEthersProvider({ chainId } = {}) {
     () => (client ? clientToProvider(client) : undefined),
     [client]
   );
+}
+
+/** Hook to convert a viem Wallet Client to an ethers.js Signer. */
+export function useEthersSigner({ chainId } = {}) {
+  const { data: client } = useWalletClient({ chainId });
+  return useMemo(() => (client ? clientToSigner(client) : undefined), [client]);
 }

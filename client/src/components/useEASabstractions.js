@@ -4,8 +4,7 @@ import {
   EASContractAddress,
   schemaRegistryContractAddress,
 } from "../config.js";
-import { useEthersProvider } from "../hooks/clientToProvider.js";
-import { useEthersSigner } from "../hooks/connectorClientToSigner.js";
+import { useEthersProvider, useEthersSigner } from "../hooks/useConverters.js";
 
 export const useEAS = () => {
   const provider = useEthersProvider();
