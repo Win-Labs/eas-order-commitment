@@ -4,7 +4,12 @@ import {
   EASContractAddress,
   schemaRegistryContractAddress,
 } from "../config.js";
-import { useEthersProvider, useEthersSigner } from "../hooks/useConverters.js";
+import {
+  useEthersProvider,
+  useEthersSigner,
+  useProvider,
+  useSigner,
+} from "../hooks/useConverters.js";
 
 export const useEAS = () => {
   const provider = useEthersProvider();
@@ -21,7 +26,7 @@ export const useGetSchemaRecord = (schemaUID) => {
   const schemaRegistryInstance = new SchemaRegistry(
     schemaRegistryContractAddress
   );
-  const provider = useEthersProvider();
+  const provider = useProvider();
 
   schemaRegistryInstance.connect(provider);
   const [schemaRecord, setSchemaRecord] = useState(null);
@@ -48,7 +53,7 @@ export const useRegisterSchema = () => {
   const schemaRegistryInstance = new SchemaRegistry(
     schemaRegistryContractAddress
   );
-  const signer = useEthersSigner();
+  const signer = useSigner();
 
   schemaRegistryInstance.connect(signer);
 
